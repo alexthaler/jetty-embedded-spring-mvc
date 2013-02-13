@@ -1,3 +1,5 @@
 target
 var
 dependency-reduced-pom.xml
+.gradle
+build
