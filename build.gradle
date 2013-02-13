@@ -2,6 +2,18 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.2-rc1'
+    }
+}
+
+apply plugin: 'fatjar'
+
 repositories {
     mavenCentral()
 }
@@ -15,4 +27,24 @@ dependencies {
     compile "org.eclipse.jetty:jetty-servlets:8.1.5.v20120716"
     compile "org.eclipse.jetty:jetty-jsp:8.1.4.v20120524"
     compile "javax.servlet:jstl:1.2"
+}
+
+fatJarPrepareFiles {
+    include 'META-INF/spring.handlers'
+    include 'META-INF/spring.schemas'
+}
+
+fatJar {
+
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+    
+    into('META-INF/webapp') {
+        from "src/main/java/META-INF/webapp"
+    }
+
+    manifest {
+        attributes 'Main-Class': 'com.sjl.Main'
+    }
 }
