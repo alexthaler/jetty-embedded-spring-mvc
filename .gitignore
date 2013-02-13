@@ -3,3 +3,7 @@ var
 dependency-reduced-pom.xml
 .gradle
 build
+*.iml
+*.ipr
+*.iws
+out
